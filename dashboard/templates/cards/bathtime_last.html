@@ -1,0 +1,29 @@
+{% extends 'cards/base.html' %}
+{% load duration i18n %}
+
+{% block header %}
+    <a href="{% url "core:bathtime-list" %}">
+        {% trans "Last Bath Time" %}
+    </a>
+{% endblock %}
+
+
+{% block title %}
+    {% if bathtime %}
+        {% blocktrans trimmed with since=bathtime.end|deltasince|duration_string:'m' time=bathtime.end|time %}
+            <div>{{ since }} ago</div>
+            <small>{{ time }}</small>
+        {% endblocktrans %}
+    {% else %}
+        {% trans "Never" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if bathtime %}
+        {{ bathtime.duration|duration_string }}
+        {% if bathtime.milestone %}
+            <br /> {{ bathtime.milestone }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

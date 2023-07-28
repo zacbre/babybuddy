@@ -76,7 +76,12 @@
                                 {% trans "Tummy Time" %}
                             </a>
                         {% endif %}
-
+                        {% if  perms.core.add_bathtime %}
+                        <a class="dropdown-item p-2" href="{% url 'core:bathtime-add' %}">
+                            <i class="icon-bathtime" aria-hidden="true"></i>
+                            {% trans "Bath Time" %}
+                        </a>
+                    {% endif %}
 
                     </div>
                 </div>
@@ -303,6 +308,20 @@
                                 <a class="dropdown-item ps-5{% if request.path == '/tummy-time/add/' %} active{% endif %}"
                                    href="{% url 'core:tummytime-add' %}"><i class="icon-add" aria-hidden="true"></i>
                                     {% trans "Tummy Time entry" %}
+                                </a>
+                            {% endif %}
+
+                            {% if perms.core.view_bathtime %}
+                                <a class="dropdown-item{% if request.path == '/bath-time/' %} active{% endif %}"
+                                   href="{% url 'core:bathtime-list' %}"><i class="icon-bathtime"
+                                                                             aria-hidden="true"></i>
+                                    {% trans "Bath Time" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.core.add_bathtime %}
+                                <a class="dropdown-item ps-5{% if request.path == '/bath-time/add/' %} active{% endif %}"
+                                   href="{% url 'core:bathtime-add' %}"><i class="icon-add" aria-hidden="true"></i>
+                                    {% trans "Bath Time entry" %}
                                 </a>
                             {% endif %}
                         </div>

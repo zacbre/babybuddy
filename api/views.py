@@ -132,6 +132,13 @@ class TummyTimeViewSet(viewsets.ModelViewSet):
     ordering_fields = ("duration", "end", "start")
     ordering = "-start"
 
+class BathTimeViewSet(viewsets.ModelViewSet):
+    queryset = models.BathTime.objects.all()
+    serializer_class = serializers.BathTimeSerializer
+    filterset_class = filters.BathTimeFilter
+    ordering_fields = ("duration", "end", "start")
+    ordering = "-start"
+
 
 class WeightViewSet(viewsets.ModelViewSet):
     queryset = models.Weight.objects.all()

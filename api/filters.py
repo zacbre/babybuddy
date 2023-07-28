@@ -105,3 +105,7 @@ class TimerFilter(StartEndFieldFilter):
 class TummyTimeFilter(StartEndFieldFilter, TagsFieldFilter):
     class Meta(StartEndFieldFilter.Meta):
         model = models.TummyTime
+
+class BathTimeFilter(StartEndFieldFilter, TagsFieldFilter):
+    class Meta(StartEndFieldFilter.Meta):
+        model = models.BathTime

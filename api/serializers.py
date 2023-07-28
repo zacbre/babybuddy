@@ -260,6 +260,19 @@ class TummyTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
             "tags",
         )
 
+class BathTimeSerializer(CoreModelWithDurationSerializer, TaggableSerializer):
+    class Meta(CoreModelWithDurationSerializer.Meta):
+        model = models.BathTime
+        fields = (
+            "id",
+            "child",
+            "start",
+            "end",
+            "timer",
+            "duration",
+            "milestone",
+            "tags",
+        )
 
 class WeightSerializer(CoreModelSerializer, TaggableSerializer):
     class Meta:

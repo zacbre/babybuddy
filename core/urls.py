@@ -85,6 +85,16 @@ urlpatterns = [
         views.TummyTimeDelete.as_view(),
         name="tummytime-delete",
     ),
+    path("bath-time/", views.BathTimeList.as_view(), name="bathtime-list"),
+    path("bath-time/add/", views.BathTimeAdd.as_view(), name="bathtime-add"),
+    path(
+        "bath-time/<int:pk>/", views.BathTimeUpdate.as_view(), name="bathtime-update"
+    ),
+    path(
+        "bath-time/<int:pk>/delete/",
+        views.BathTimeDelete.as_view(),
+        name="bathtime-delete",
+    ),
     path("weight/", views.WeightList.as_view(), name="weight-list"),
     path("weight/add/", views.WeightAdd.as_view(), name="weight-add"),
     path("weight/<int:pk>/", views.WeightUpdate.as_view(), name="weight-update"),

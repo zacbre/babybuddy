@@ -74,6 +74,10 @@ class TummyTimeFilter(TagFilter):
         model = models.TummyTime
         fields = ["child"]
 
+class BathTimeFilter(TagFilter):
+    class Meta:
+        model = models.BathTime
+        fields = ["child"]
 
 class WeightFilter(TagFilter):
     class Meta:

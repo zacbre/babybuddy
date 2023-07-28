@@ -244,6 +244,16 @@ class TummyTimeForm(CoreModelForm, TaggableModelForm):
             "end": DateTimeInput(),
         }
 
+class BathTimeForm(CoreModelForm, TaggableModelForm):
+    class Meta:
+        model = models.BathTime
+        fields = ["child", "start", "end", "milestone", "tags"]
+        widgets = {
+            "child": ChildRadioSelect,
+            "start": DateTimeInput(),
+            "end": DateTimeInput(),
+        }
+
 
 class WeightForm(CoreModelForm, TaggableModelForm):
     class Meta:

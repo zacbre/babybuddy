@@ -11021,6 +11021,17 @@ textarea.form-control-lg {
   color: #239556;
 }
 
+.card-bathtime {
+  border-color: #239556;
+}
+.card-bathtime .card-header, .card-bathtime .card-header a {
+  background-color: #239556;
+  color: #f8f9fa;
+}
+.card-bathtime .card-body {
+  color: #239556;
+}
+
 .child-actions {
   flex-wrap: wrap;
 }

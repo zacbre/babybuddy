@@ -511,6 +511,33 @@ class TummyTimeDelete(CoreDeleteView):
     success_url = reverse_lazy("core:tummytime-list")
 
 
+class BathTimeList(PermissionRequiredMixin, BabyBuddyFilterView):
+    model = models.BathTime
+    template_name = "core/bathtime_list.html"
+    permission_required = ("core.view_bathtime",)
+    paginate_by = 10
+    filterset_class = filters.BathTimeFilter
+
+class BathTimeAdd(CoreAddView):
+    model = models.BathTime
+    permission_required = ("core.add_bathtime",)
+    form_class = forms.BathTimeForm
+    success_url = reverse_lazy("core:bathtime-list")
+
+
+class BathTimeUpdate(CoreUpdateView):
+    model = models.BathTime
+    permission_required = ("core.change_bathtime",)
+    form_class = forms.BathTimeForm
+    success_url = reverse_lazy("core:bathtime-list")
+
+
+class BathTimeDelete(CoreDeleteView):
+    model = models.BathTime
+    permission_required = ("core.delete_bathtime",)
+    success_url = reverse_lazy("core:bathtime-list")
+
+
 class WeightList(PermissionRequiredMixin, BabyBuddyFilterView):
     model = models.Weight
     template_name = "core/weight_list.html"

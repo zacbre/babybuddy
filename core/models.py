@@ -650,6 +650,54 @@ class TummyTime(models.Model):
         validate_unique_period(TummyTime.objects.filter(child=self.child), self)
 
 
+class BathTime(models.Model):
+    model_name = "bathtime"
+    child = models.ForeignKey(
+        "Child",
+        on_delete=models.CASCADE,
+        related_name="bath_time",
+        verbose_name=_("Child"),
+    )
+    start = models.DateTimeField(
+        blank=False,
+        default=timezone.localtime,
+        null=False,
+        verbose_name=_("Start time"),
+    )
+    end = models.DateTimeField(
+        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+    )
+    duration = models.DurationField(
+        editable=False, null=True, verbose_name=_("Duration")
+    )
+    milestone = models.CharField(
+        blank=True, max_length=255, verbose_name=_("Milestone")
+    )
+    tags = TaggableManager(blank=True, through=Tagged)
+
+    objects = models.Manager()
+
+    class Meta:
+        default_permissions = ("view", "add", "change", "delete")
+        ordering = ["-start"]
+        verbose_name = _("Bath Time")
+        verbose_name_plural = _("Bath Time")
+
+    def __str__(self):
+        return str(_("Bath Time"))
+
+    def save(self, *args, **kwargs):
+        if self.start and self.end:
+            self.duration = self.end - self.start
+        super(BathTime, self).save(*args, **kwargs)
+
+    def clean(self):
+        validate_time(self.start, "start")
+        validate_time(self.end, "end")
+        validate_duration(self)
+        validate_unique_period(BathTime.objects.filter(child=self.child), self)
+
+
 class Weight(models.Model):
     model_name = "weight"
     child = models.ForeignKey(

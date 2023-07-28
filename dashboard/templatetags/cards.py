@@ -771,3 +771,54 @@ def card_tummytime_day(context, child, date=None):
         "empty": empty,
         "hide_empty": _hide_empty(context),
     }
+
+@register.inclusion_tag("cards/bathtime_last.html", takes_context=True)
+def card_bathtime_last(context, child):
+    """
+    Filters the most recent bath time.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Bath Time instance.
+    """
+    instance = (
+        models.BathTime.objects.filter(child=child)
+        .filter(**_filter_data_age(context))
+        .order_by("-end")
+        .first()
+    )
+    empty = not instance
+
+    return {
+        "type": "bathtime",
+        "bathtime": instance,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+
+@register.inclusion_tag("cards/bathtime_day.html", takes_context=True)
+def card_bathtime_day(context, child, date=None):
+    """
+    Filters Bath Time instances and generates statistics for a specific date.
+    :param child: an instance of the Child model.
+    :param date: a Date object for the day to filter.
+    :returns: a dictionary of all Bath Time instances and stats for date.
+    """
+    if not date:
+        date = timezone.localtime().date()
+    instances = models.BathTime.objects.filter(
+        child=child, end__year=date.year, end__month=date.month, end__day=date.day
+    ).order_by("-end")
+    empty = len(instances) == 0
+
+    stats = {"total": timezone.timedelta(seconds=0), "count": instances.count()}
+    for instance in instances:
+        stats["total"] += timezone.timedelta(seconds=instance.duration.seconds)
+
+    return {
+        "type": "bathtime",
+        "stats": stats,
+        "instances": instances,
+        "last": instances.first(),
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }

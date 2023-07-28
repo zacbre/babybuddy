@@ -58,6 +58,14 @@
                         {% trans "Tummy Time" %}
                     </a>
                 {% endif %}
+
+                {% if perms.core.add_bathtime %}
+                    <a class="btn btn-success btn-lg"
+                       href="{% instance_add_url 'core:bathtime-add' %}"
+                       role="button"><i class="icon-bathtime" aria-hidden="true"></i>
+                        {% trans "Bath Time" %}
+                    </a>
+                {% endif %}
             </div>
 
             <div class="center-block" role="group" aria-label="{% trans "Timer actions" %}">

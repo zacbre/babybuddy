@@ -243,6 +243,27 @@ class TummyTimeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
     )
     resource_class = TummyTimeImportExportResource
 
+class BathTimeImportExportResource(ImportExportResourceBase):
+    class Meta:
+        model = models.BathTime
+
+@admin.register(models.BathTime)
+class BathTimeAdmin(ImportExportMixin, ExportActionMixin, admin.ModelAdmin):
+    list_display = (
+        "start",
+        "end",
+        "duration",
+        "child",
+        "milestone",
+    )
+    list_filter = ("child", "tags")
+    search_fields = (
+        "child__first_name",
+        "child__last_name",
+        "milestone",
+    )
+    resource_class = BathTimeImportExportResource
+
 
 class WeightImportExportResource(ImportExportResourceBase):
     class Meta:
